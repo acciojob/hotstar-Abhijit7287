@@ -29,9 +29,9 @@ public class SubscriptionService {
         //Save The subscription Object into the Db and return the total Amount that user has to pay
         int amount =0;
 
-        if(subscriptionEntryDto.getSubscriptionType().equals("BASIC")){
+        if(subscriptionEntryDto.getSubscriptionType().equals(SubscriptionType.BASIC)){
             amount = 500+ (200*subscriptionEntryDto.getNoOfScreensRequired());
-        }else if(subscriptionEntryDto.getSubscriptionType().equals("PRO")){
+        }else if(subscriptionEntryDto.getSubscriptionType().equals(SubscriptionType.PRO)){
             amount = 800+ (250*subscriptionEntryDto.getNoOfScreensRequired());
         }else{
             amount = 1000+ (350*subscriptionEntryDto.getNoOfScreensRequired());
@@ -62,11 +62,11 @@ public class SubscriptionService {
 
         Subscription subscription = user.getSubscription();
 
-        if(subscription.getSubscriptionType().equals("ELITE")){
+        if(subscription.getSubscriptionType().equals(SubscriptionType.ELITE)){
             throw new Exception("Already the best Subscription");
         }
 
-        if(subscription.getSubscriptionType().equals("BASIC")){
+        if(subscription.getSubscriptionType().equals(SubscriptionType.BASIC)){
 
             subscription.setSubscriptionType(SubscriptionType.PRO);
             int prevAmount = subscription.getTotalAmountPaid();
@@ -102,9 +102,17 @@ public class SubscriptionService {
         //We need to find out total Revenue of hotstar : from all the subscriptions combined
         //Hint is to use findAll function from the SubscriptionDb
 
+        List<Subscription> subscriptions = subscriptionRepository.findAll();
+
+        Integer revenue = 0;
 
 
-        return null;
+        for(Subscription subscription : subscriptions){
+
+            revenue+=subscription.getTotalAmountPaid();
+        }
+
+        return revenue;
     }
 
 }
