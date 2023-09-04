@@ -55,13 +55,12 @@ public class UserService {
 
             SubscriptionType type = webSeries.getSubscriptionType();
 
-            if(userAge>=age && userSubType.equals(type)){
+            if(userAge>age && userSubType.equals(type)){
                 count++;
             }
         }
 
         return count;
     }
-
 
 }

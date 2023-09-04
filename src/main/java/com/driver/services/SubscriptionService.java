@@ -29,12 +29,17 @@ public class SubscriptionService {
         //Save The subscription Object into the Db and return the total Amount that user has to pay
         int amount =0;
 
+        int mul = subscriptionEntryDto.getNoOfScreensRequired();
+        if(mul==0){
+            mul=1;
+        }
+
         if(subscriptionEntryDto.getSubscriptionType().equals(SubscriptionType.BASIC)){
-            amount = 500+ (200*subscriptionEntryDto.getNoOfScreensRequired());
+            amount = 500+ (200*mul);
         }else if(subscriptionEntryDto.getSubscriptionType().equals(SubscriptionType.PRO)){
-            amount = 800+ (250*subscriptionEntryDto.getNoOfScreensRequired());
+            amount = 800+ (250*mul);
         }else{
-            amount = 1000+ (350*subscriptionEntryDto.getNoOfScreensRequired());
+            amount = 1000+ (350*mul);
         }
 
         ///it will Automatically captures current date and time , we dont have give any parameters to it
@@ -72,8 +77,12 @@ public class SubscriptionService {
             int prevAmount = subscription.getTotalAmountPaid();
             Date date = new Date();
             subscription.setStartSubscriptionDate(date);
-            int totalAmount = 800+250*subscription.getNoOfScreensSubscribed();
-            subscription.setTotalAmountPaid(totalAmount);
+            int mul = subscription.getNoOfScreensSubscribed();
+            if(mul==0){
+                mul=1;
+            }
+            int totalAmount = 800+250;
+            subscription.setTotalAmountPaid(totalAmount*mul);
 
             subscriptionRepository.save(subscription);
 
@@ -86,8 +95,12 @@ public class SubscriptionService {
             int prevAmount = subscription.getTotalAmountPaid();
             Date date = new Date();
             subscription.setStartSubscriptionDate(date);
-            int totalAmount = 1000+350*subscription.getNoOfScreensSubscribed();
-            subscription.setTotalAmountPaid(totalAmount);
+            int mul = subscription.getNoOfScreensSubscribed();
+            if(mul==0){
+                mul=1;
+            }
+            int totalAmount = 1000+350;
+            subscription.setTotalAmountPaid(totalAmount*mul);
 
             subscriptionRepository.save(subscription);
 
