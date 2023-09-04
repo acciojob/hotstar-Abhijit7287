@@ -80,9 +80,9 @@ public class SubscriptionService {
             return totalAmount-prevAmount;
         }
 
-        else if(subscription.getSubscriptionType().equals("PRO")){
+        else if(subscription.getSubscriptionType().equals(SubscriptionType.PRO)){
 
-            subscription.setSubscriptionType(SubscriptionType.PRO);
+            subscription.setSubscriptionType(SubscriptionType.ELITE);
             int prevAmount = subscription.getTotalAmountPaid();
             Date date = new Date();
             subscription.setStartSubscriptionDate(date);
@@ -104,8 +104,11 @@ public class SubscriptionService {
 
         List<Subscription> subscriptions = subscriptionRepository.findAll();
 
-        Integer revenue = 0;
+        if(subscriptions.size()==0){
+            return 0;
+        }
 
+        Integer revenue = 0;
 
         for(Subscription subscription : subscriptions){
 

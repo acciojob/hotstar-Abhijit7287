@@ -47,6 +47,17 @@ public class WebSeriesService {
 
         productionHouse.setWebSeriesList(webSeriesList);
 
+        double productionRating = 0;
+
+        List<WebSeries> webSeriesList1 = productionHouse.getWebSeriesList();
+
+        for(WebSeries webSeries1 : webSeriesList1){
+
+            productionRating +=webSeries1.getRating();
+        }
+
+        productionHouse.setRatings(productionRating/webSeriesList1.size());
+
         productionHouseRepository.save(productionHouse);
 
         ///setting the foreign key

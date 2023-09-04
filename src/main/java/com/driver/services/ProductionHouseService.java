@@ -19,6 +19,6 @@ public class ProductionHouseService {
 
         productionHouse.setRatings(0);
 
-        return productionHouse.getId();
+        return 0;
     }
 }
